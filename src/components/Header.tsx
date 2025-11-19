@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-// ⭐️ CORRIGIDO: Inclui todos os ícones necessários (MessageCircle, Menu e X)
 import { MessageCircle, Menu, X } from 'lucide-react'; 
-// ⭐️ CORRIGIDO: Inclui o hook de estado necessário para o menu mobile
 import { useState } from 'react'; 
 
 const Header = () => {
@@ -57,7 +55,7 @@ const Header = () => {
         </div>
       </div>
       
-      {/* ⭐️ MENU MOBILE (Fixed Sidebar - CORRIGIDO O LAYOUT) */}
+      {/* ⭐️ MENU MOBILE (Fixed Sidebar - CORRIGIDO O LAYOUT E FUNDO) */}
       
       {/* 1. Overlay de fundo (z-40) que cobre a tela inteira */}
       {isMenuOpen && (

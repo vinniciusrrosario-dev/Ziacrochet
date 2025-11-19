@@ -1,13 +1,13 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Package, ShoppingBag, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import { useState } from 'react';
+import { useState } from 'react'; // ⭐️ NOVO IMPORT
 
 const AdminLayout = () => {
   const { signOut } = useAuth();
   const navigate = useNavigate();
   // ⭐️ NOVO: Estado para controlar a visibilidade do menu lateral
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
   const handleLogout = async () => {
     await signOut();
@@ -22,7 +22,7 @@ const AdminLayout = () => {
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       
-      {/* ⭐️ NOVO: Overlay de fundo para o mobile, visível quando o menu está aberto */}
+      {/* ⭐️ Overlay de fundo para o mobile, visível quando o menu está aberto */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/50 lg:hidden" 
@@ -32,8 +32,7 @@ const AdminLayout = () => {
 
       {/* BARRA LATERAL */}
       <div 
-        // ⭐️ CORREÇÃO: fixed no mobile, mas transforma para sair da tela quando fechado.
-        // Fundo agora é BG-GRAY-100 sólido (removendo a transparência /40)
+        // ⭐️ CORREÇÃO: Fundo agora é BG-GRAY-100 (sólido) e usa classes de sobreposição no mobile
         className={`fixed inset-y-0 left-0 z-50 w-64 border-r bg-gray-100 transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:block`}
