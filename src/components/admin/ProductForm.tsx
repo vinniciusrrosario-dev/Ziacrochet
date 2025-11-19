@@ -46,11 +46,10 @@ const ProductForm: FC<ProductFormProps> = ({ productToEdit, onClose, onSave }) =
     }
   };
 
-  // ⭐️ OTIMIZADO: Função agora usa o utility para upload de múltiplos arquivos
   const uploadImages = async (): Promise<string[]> => {
     const uploadedUrls: string[] = [];
     for (const file of imageFiles) {
-      const publicUrl = await uploadFileToSupabase(file);
+      const publicUrl = await uploadFileToSupabase(file); // ⭐️ USANDO O UTILITY
       uploadedUrls.push(publicUrl);
     }
     return uploadedUrls;

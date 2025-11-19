@@ -42,11 +42,10 @@ const DeliveredWorkForm: FC<DeliveredWorkFormProps> = ({ workToEdit, onClose, on
     }
   };
 
-  // ⭐️ OTIMIZADO: Função agora usa o utility
   const uploadImage = async (): Promise<string> => {
     if (!imageFile) throw new Error("Nenhuma imagem selecionada.");
     
-    return uploadFileToSupabase(imageFile);
+    return uploadFileToSupabase(imageFile); // ⭐️ USANDO O UTILITY
   };
 
   const onSubmit = async (data: FormData) => {
