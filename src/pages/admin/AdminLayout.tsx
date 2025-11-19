@@ -76,7 +76,7 @@ const AdminLayout = () => {
       {/* CONTEÚDO PRINCIPAL */}
       <div className="flex flex-col">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6">
-           {/* ⭐️ NOVO: Botão de abrir menu no mobile */}
+           {/*Botão de abrir menu no mobile */}
            <button className="lg:hidden p-2" onClick={() => setIsSidebarOpen(true)}>
              <Menu size={24} />
            </button>
