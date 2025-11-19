@@ -1,15 +1,23 @@
 import { Link } from 'react-router-dom';
+// ⭐️ IMPORTAR HashLink (NOVO)
+import { HashLink } from 'react-router-hash-link';
 import { MessageCircle, Menu, X } from 'lucide-react'; 
 import { useState } from 'react'; 
 
 const Header = () => {
-  // Estado para controlar a visibilidade do menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Função para fechar o menu ao clicar em um link
   const handleLinkClick = () => {
     setIsMenuOpen(false);
   };
+
+  // Funções de rolagem suave (opcional, mas bom para HashLink)
+  const scrollWithOffset = (el: HTMLElement) => {
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+    const yOffset = -60; // Ajusta para a altura do cabeçalho fixo
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+  };
+
 
   return (
     <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -20,17 +28,16 @@ const Header = () => {
           Zia Crochet
         </Link>
         
-        {/* NAVEGAÇÃO DESKTOP (Visível a partir de md) */}
+        {/* NAVEGAÇÃO DESKTOP (CORRIGIDO: USA HASH LINK) */}
         <nav className="hidden md:flex items-center gap-6 text-lg">
           <Link to="/" className="hover:text-brand-green transition-colors">Página Inicial</Link>
-          <a href="#produtos" className="hover:text-brand-green transition-colors">Produtos</a>
-          <a href="#contato" className="hover:text-brand-green transition-colors">Contato</a>
+          {/* ⭐️ USANDO HashLink para navegação interna */}
+          <HashLink to="/#produtos" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset}>Produtos</HashLink>
+          <HashLink to="/#contato" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset}>Contato</HashLink>
         </nav>
         
-        {/* BOTÕES À DIREITA */}
         <div className="flex items-center gap-4">
           
-          {/* Botão WhatsApp e Admin (visível no desktop) */}
           <a 
             href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Gostaria+de+fazer+uma+consulta." 
             target="_blank" 
@@ -55,9 +62,7 @@ const Header = () => {
         </div>
       </div>
       
-      {/* ⭐️ MENU MOBILE (Fixed Sidebar - CORRIGIDO O LAYOUT E FUNDO) */}
-      
-      {/* 1. Overlay de fundo (z-40) que cobre a tela inteira */}
+      {/* Overlay de fundo */}
       {isMenuOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/50 md:hidden" 
@@ -65,7 +70,7 @@ const Header = () => {
         />
       )}
 
-      {/* 2. Barra Lateral (z-50) - Garante fundo sólido e deslize correto */}
+      {/* Menu Mobile */}
       <div 
         className={`
           fixed top-0 right-0 h-screen w-full sm:w-80 bg-white shadow-xl z-50 p-6 flex flex-col transition-transform duration-300 ease-in-out
@@ -79,14 +84,15 @@ const Header = () => {
            </button>
         </div>
         
-        {/* Links do Menu Mobile */}
+        {/* Links do Menu Mobile (CORRIGIDO: USA HASH LINK) */}
         <nav className="flex flex-col gap-6 text-xl font-medium">
           <Link to="/" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Página Inicial</Link>
-          <a href="#produtos" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Produtos</a>
-          <a href="#contato" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Contato</a>
+          {/* ⭐️ USANDO HashLink para navegação interna no mobile */}
+          <HashLink to="/#produtos" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset} onClick={handleLinkClick}>Produtos</HashLink>
+          <HashLink to="/#contato" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset} onClick={handleLinkClick}>Contato</HashLink>
         </nav>
         
-        {/* Botões Adicionais (WhatsApp e Admin) no rodapé do menu mobile */}
+        {/* Botões Adicionais (WhatsApp e Admin) */}
         <div className="mt-auto pt-6 border-t border-gray-200 flex flex-col gap-4">
           <a 
             href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Gostaria+de+fazer+uma+consulta." 
