@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { supabase } from '../../lib/supabase';
 import { DeliveredWork } from '../../types';
 import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
 import Spinner from './Spinner';
+import { uploadFileToSupabase } from '../../utils/supabaseStorage'; // ⭐️ NOVO IMPORT
 
 interface DeliveredWorkFormProps {
   workToEdit?: DeliveredWork | null;
@@ -42,21 +42,11 @@ const DeliveredWorkForm: FC<DeliveredWorkFormProps> = ({ workToEdit, onClose, on
     }
   };
 
+  // ⭐️ OTIMIZADO: Função agora usa o utility
   const uploadImage = async (): Promise<string> => {
     if (!imageFile) throw new Error("Nenhuma imagem selecionada.");
     
-    const filePath = `public/${uuidv4()}-${imageFile.name}`;
-    const { data, error } = await supabase.storage
-      .from('product-images')
-      .upload(filePath, imageFile);
-
-    if (error) throw new Error(`Erro no upload da imagem: ${error.message}`);
-    
-    const { data: { publicUrl } } = supabase.storage
-      .from('product-images')
-      .getPublicUrl(data.path);
-      
-    return publicUrl;
+    return uploadFileToSupabase(imageFile);
   };
 
   const onSubmit = async (data: FormData) => {

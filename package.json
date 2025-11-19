@@ -1,5 +1,5 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "ziacrochet-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,9 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@faker-js/faker": "^10.1.0",
     "@supabase/supabase-js": "^2.83.0",
-    "axios": "^1.9.0",
     "lucide-react": "^0.554.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -26,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@faker-js/faker": "^10.1.0",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@types/uuid": "^10.0.0",

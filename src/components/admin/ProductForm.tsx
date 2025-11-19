@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { supabase } from '../../lib/supabase';
 import { Product } from '../../types';
 import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
 import Spinner from './Spinner';
+import { uploadFileToSupabase } from '../../utils/supabaseStorage'; // ⭐️ NOVO IMPORT
 
 interface ProductFormProps {
   productToEdit?: Product | null;
@@ -46,22 +46,11 @@ const ProductForm: FC<ProductFormProps> = ({ productToEdit, onClose, onSave }) =
     }
   };
 
+  // ⭐️ OTIMIZADO: Função agora usa o utility para upload de múltiplos arquivos
   const uploadImages = async (): Promise<string[]> => {
     const uploadedUrls: string[] = [];
     for (const file of imageFiles) {
-      const filePath = `public/${uuidv4()}-${file.name}`;
-      const { data, error } = await supabase.storage
-        .from('product-images')
-        .upload(filePath, file);
-
-      if (error) {
-        throw new Error(`Erro no upload da imagem: ${error.message}`);
-      }
-      
-      const { data: { publicUrl } } = supabase.storage
-        .from('product-images')
-        .getPublicUrl(data.path);
-      
+      const publicUrl = await uploadFileToSupabase(file);
       uploadedUrls.push(publicUrl);
     }
     return uploadedUrls;
