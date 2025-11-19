@@ -94,7 +94,7 @@ const Header = () => {
         {/* Botões Adicionais (WhatsApp e Admin) */}
         <div className="mt-auto pt-6 border-t border-gray-200 flex flex-col gap-4">
           <a 
-            href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Gostaria+de+fazer+uma+consulta." 
+            href="https://wa.me/5571996436693?text=Ol%C3%A1%21+Gostaria+de+fazer+uma+consulta." 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600 transition-colors"

@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
   
   const whatsappMessage = encodeURIComponent(`Olá, gostaria de saber mais sobre o produto: ${product.name}.`);
-  const whatsappLink = `https://wa.me/5511999999999?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/5571996436693?text=${whatsappMessage}`;
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
