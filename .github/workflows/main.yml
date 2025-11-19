@@ -1,5 +1,3 @@
-# Use este código COMPLETO no editor de workflow do GitHub
-
 name: Deploy to GitHub Pages
 
 on:
@@ -16,16 +14,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Setup Node.js
+      # ⭐️ CORREÇÃO PRINCIPAL: Setup Node com cache explícito para NPM
+      # Isso força o runner a procurar por package-lock.json (do NPM)
+      - name: Setup Node.js and Cache
         uses: actions/setup-node@v4
         with:
-          node-version: '20' 
+          node-version: '20' # Mantenha a versão que você usa
+          cache: 'npm' # FORÇA O USO DE NPM
 
-      - name: Build and Inject Supabase Keys
+      - name: Install dependencies and Build
+        # O "npm install" agora deve funcionar com o cache do NPM
         run: |
-          npm install
+          npm install 
           npm run build
         env:
+          # Injeção dos Segredos Supabase
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }} 
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           
@@ -33,5 +36,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist 
+          publish_dir: ./dist # Pasta de build do Vite
           publish_branch: gh-pages
