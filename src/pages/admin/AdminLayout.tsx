@@ -1,14 +1,13 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-// ADICIONE Menu, X e useState:
 import { LayoutDashboard, Package, ShoppingBag, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import { useState } from 'react'; //
+import { useState } from 'react';
 
 const AdminLayout = () => {
   const { signOut } = useAuth();
   const navigate = useNavigate();
-  // NOVO: Estado para controlar a visibilidade do menu lateral
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); //
+  // ⭐️ NOVO: Estado para controlar a visibilidade do menu lateral
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = async () => {
     await signOut();
@@ -23,7 +22,7 @@ const AdminLayout = () => {
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       
-      {/* NOVO: Overlay de fundo para o mobile, visível quando o menu está aberto */}
+      {/* ⭐️ NOVO: Overlay de fundo para o mobile, visível quando o menu está aberto */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/50 lg:hidden" 
@@ -33,10 +32,9 @@ const AdminLayout = () => {
 
       {/* BARRA LATERAL */}
       <div 
-        // Lógica de classes para esconder/mostrar no mobile:
-        // fixo no mobile, transiciona na abertura/fechamento
-        // lg:static e lg:translate-x-0 para manter no desktop
-        className={`fixed inset-y-0 left-0 z-50 w-64 border-r bg-gray-100/40 transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+        // ⭐️ CORREÇÃO: fixed no mobile, mas transforma para sair da tela quando fechado.
+        // Fundo agora é BG-GRAY-100 sólido (removendo a transparência /40)
+        className={`fixed inset-y-0 left-0 z-50 w-64 border-r bg-gray-100 transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:block`}
       >
@@ -46,7 +44,7 @@ const AdminLayout = () => {
               <ShoppingBag className="h-6 w-6 text-brand-green" />
               <span>Zia Crochet</span>
             </NavLink>
-            {/* NOVO: Botão de fechar menu no mobile */}
+            {/* ⭐️ NOVO: Botão de fechar menu no mobile */}
             <button className="ml-auto lg:hidden p-2" onClick={() => setIsSidebarOpen(false)}>
               <X size={24} />
             </button>
@@ -79,7 +77,7 @@ const AdminLayout = () => {
       {/* CONTEÚDO PRINCIPAL */}
       <div className="flex flex-col">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6">
-           {/* NOVO: Botão de abrir menu no mobile */}
+           {/* ⭐️ NOVO: Botão de abrir menu no mobile */}
            <button className="lg:hidden p-2" onClick={() => setIsSidebarOpen(true)}>
              <Menu size={24} />
            </button>
