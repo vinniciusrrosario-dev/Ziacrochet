@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import { MessageCircle, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+// ⭐️ CORRIGIDO: Inclui todos os ícones necessários (MessageCircle, Menu e X)
+import { MessageCircle, Menu, X } from 'lucide-react'; 
+// ⭐️ CORRIGIDO: Inclui o hook de estado necessário para o menu mobile
+import { useState } from 'react'; 
 
 const Header = () => {
   // Estado para controlar a visibilidade do menu
@@ -55,8 +57,9 @@ const Header = () => {
         </div>
       </div>
       
-      {/* ⭐️ MENU MOBILE (Fixed Sidebar - CORRIGIDO) */}
-      {/* Overlay de fundo (z-40) que cobre a tela inteira */}
+      {/* ⭐️ MENU MOBILE (Fixed Sidebar - CORRIGIDO O LAYOUT) */}
+      
+      {/* 1. Overlay de fundo (z-40) que cobre a tela inteira */}
       {isMenuOpen && (
         <div 
           className="fixed inset-0 z-40 bg-black/50 md:hidden" 
@@ -64,7 +67,7 @@ const Header = () => {
         />
       )}
 
-      {/* ⭐️ Barra Lateral (z-50) */}
+      {/* 2. Barra Lateral (z-50) - Garante fundo sólido e deslize correto */}
       <div 
         className={`
           fixed top-0 right-0 h-screen w-full sm:w-80 bg-white shadow-xl z-50 p-6 flex flex-col transition-transform duration-300 ease-in-out
@@ -82,4 +85,33 @@ const Header = () => {
         <nav className="flex flex-col gap-6 text-xl font-medium">
           <Link to="/" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Página Inicial</Link>
           <a href="#produtos" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Produtos</a>
-          <a href="#contato" className="hover
+          <a href="#contato" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Contato</a>
+        </nav>
+        
+        {/* Botões Adicionais (WhatsApp e Admin) no rodapé do menu mobile */}
+        <div className="mt-auto pt-6 border-t border-gray-200 flex flex-col gap-4">
+          <a 
+            href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Gostaria+de+fazer+uma+consulta." 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600 transition-colors"
+            onClick={handleLinkClick}
+          >
+            <MessageCircle size={20} />
+            Fale no WhatsApp
+          </a>
+          <Link 
+            to="/admin" 
+            className="text-center text-sm text-gray-500 hover:text-brand-dark transition-colors" 
+            onClick={handleLinkClick}
+          >
+            Painel Admin
+          </Link>
+        </div>
+
+      </div>
+    </header>
+  );
+};
+
+export default Header;
