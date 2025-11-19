@@ -4,10 +4,10 @@ import ProductShowcase from '../components/ProductShowcase';
 import DeliveredWorksCarousel from '../components/DeliveredWorksCarousel';
 import About from '../components/About';
 import Footer from '../components/Footer';
-// ❌ O import de useEffect foi removido
+// Nenhuma importação de useEffect
 
 const HomePage = () => {
-  // ❌ A lógica useEffect de scroll foi removida
+  // Nenhuma lógica useEffect ou código de scroll aqui
 
   return (
     <>

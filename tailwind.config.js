@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-green': '#90A423',
-        'brand-dark': '#1a1a1a',
+        'brand-green': '#99A285',
+        'brand-dark': '#B28767',
         'brand-light': '#f9f9f9',
       },
       fontFamily: {
