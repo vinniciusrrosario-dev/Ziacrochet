@@ -4,10 +4,10 @@ import ProductShowcase from '../components/ProductShowcase';
 import DeliveredWorksCarousel from '../components/DeliveredWorksCarousel';
 import About from '../components/About';
 import Footer from '../components/Footer';
-// ❌ REMOVIDO: import { useEffect } from 'react';
+// ❌ O import de useEffect foi removido
 
 const HomePage = () => {
-  // ❌ REMOVIDO: O bloco useEffect que estava causando conflito
+  // ❌ A lógica useEffect de scroll foi removida
 
   return (
     <>

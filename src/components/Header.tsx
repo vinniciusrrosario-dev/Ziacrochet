@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
-// ⭐️ IMPORTAR HashLink (NOVO)
+// ⭐️ CORREÇÃO DE IMPORTS: HashLink e Hooks do React
 import { HashLink } from 'react-router-hash-link';
 import { MessageCircle, Menu, X } from 'lucide-react'; 
-import { useState } from 'react'; 
+import { useState, useCallback } from 'react'; // ⭐️ Importações corretas do 'react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleLinkClick = () => {
+  // Usando useCallback para garantir que a função de fechar menu seja estável
+  const handleLinkClick = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, []);
 
-  // Funções de rolagem suave (opcional, mas bom para HashLink)
-  const scrollWithOffset = (el: HTMLElement) => {
+  // Usando useCallback e definindo a função de rolagem
+  const scrollWithOffset = useCallback((el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
     const yOffset = -60; // Ajusta para a altura do cabeçalho fixo
     window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
-  };
+  }, []);
 
 
   return (
@@ -28,10 +29,9 @@ const Header = () => {
           Zia Crochet
         </Link>
         
-        {/* NAVEGAÇÃO DESKTOP (CORRIGIDO: USA HASH LINK) */}
+        {/* NAVEGAÇÃO DESKTOP */}
         <nav className="hidden md:flex items-center gap-6 text-lg">
           <Link to="/" className="hover:text-brand-green transition-colors">Página Inicial</Link>
-          {/* ⭐️ USANDO HashLink para navegação interna */}
           <HashLink to="/#produtos" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset}>Produtos</HashLink>
           <HashLink to="/#contato" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset}>Contato</HashLink>
         </nav>
@@ -84,10 +84,9 @@ const Header = () => {
            </button>
         </div>
         
-        {/* Links do Menu Mobile (CORRIGIDO: USA HASH LINK) */}
+        {/* Links do Menu Mobile */}
         <nav className="flex flex-col gap-6 text-xl font-medium">
           <Link to="/" className="hover:text-brand-green transition-colors" onClick={handleLinkClick}>Página Inicial</Link>
-          {/* ⭐️ USANDO HashLink para navegação interna no mobile */}
           <HashLink to="/#produtos" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset} onClick={handleLinkClick}>Produtos</HashLink>
           <HashLink to="/#contato" className="hover:text-brand-green transition-colors" scroll={scrollWithOffset} onClick={handleLinkClick}>Contato</HashLink>
         </nav>
