@@ -3,32 +3,37 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Use 'master' se o nome do seu branch principal for esse
+      - main
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # ⭐️ CORREÇÃO PRINCIPAL: Setup Node com cache explícito para NPM
+      - name: Setup Node.js and Cache
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20' # Mantenha a versão que você usa
+          cache: 'npm' # FORÇA O USO DE NPM
 
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build
-        run: yarn build
+      - name: Install dependencies and Build
+        # O "npm install" agora deve funcionar com o cache do NPM
+        run: |
+          npm install 
+          npm run build
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          # Injeção dos Segredos Supabase
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }} 
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-
-      - name: Deploy
+          
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./dist # Pasta de build do Vite
+          publish_branch: gh-pages
